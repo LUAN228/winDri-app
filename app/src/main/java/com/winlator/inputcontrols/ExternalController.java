@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 
 import com.winlator.core.ArrayUtils;
 import com.winlator.math.Mathf;
-import com.winlator.WinlatorApplication;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -153,11 +152,7 @@ public class ExternalController implements GamepadSlot {
     @Override
     public GamepadVibration getGamepadVibration() {
         if (vibration == null) {
-            if (id != null && !id.isEmpty()) {
-                vibration = new GamepadVibration(id);
-            } else {
-                vibration = new GamepadVibration(com.winlator.WinlatorApplication.getAppContext());
-            }
+            vibration = new GamepadVibration(id != null ? id : "");
         }
         return vibration;
     }
