@@ -116,10 +116,12 @@ public class FrameRating extends FrameLayout implements Runnable {
         tick = 2;
     }
 
-    public void update() {
+        public void update() {
         long time = SystemClock.elapsedRealtime();
         if (time >= lastTime + 500) {
-            lastFPS = ((float)(frameCount * 1000) / (time - lastTime));
+            long diff = time - lastTime;
+            lastFPS = ((float)(frameCount * 1000) / diff);
+            frameTime = lastFPS > 0 ? (1000f / lastFPS) : 0;
             post(this);
             lastTime = time;
             frameCount = 0;
