@@ -130,12 +130,12 @@ public class FrameRating extends FrameLayout implements Runnable {
         frameCount++;
     }
 
-    @Override
+        @Override
     public void run() {
         if (getVisibility() == GONE) setVisibility(View.VISIBLE);
-        ((TextView)fpsPanel.getChildAt(1)).setText(String.format(Locale.ENGLISH, "%.1f", lastFPS));
+        ((TextView)fpsPanel.getChildAt(1)).setText(String.format(Locale.ENGLISH, "%.1f FPS (%.1fms)", lastFPS, frameTime));
 
-        if (mode == Mode.FULL && ++tick >= 2) {
+        if ((mode == Mode.MEDIUM || mode == Mode.FULL) && ++tick >= 2) {
             tick = 0;
             activityManager.getMemoryInfo(memoryInfo);
             long usedMem = memoryInfo.totalMem - memoryInfo.availMem;
