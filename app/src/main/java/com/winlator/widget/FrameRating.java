@@ -18,10 +18,11 @@ import com.winlator.core.StringUtils;
 import java.util.Locale;
 
 public class FrameRating extends FrameLayout implements Runnable {
-    public enum Mode {DISABLED, SIMPLE, FULL}
+    public enum Mode {DISABLED, SIMPLE, MEDIUM, FULL}
     private long lastTime = 0;
     private short frameCount = 0;
     private float lastFPS = 0;
+    private float frameTime = 0;
     private final LinearLayout fpsPanel;
     private final LinearLayout gpuPanel;
     private final LinearLayout ramPanel;
