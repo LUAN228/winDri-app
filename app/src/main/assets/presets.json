@@ -1,0 +1,29 @@
+[
+  {
+    "id": "UndertaleDeltarune",
+    "name": "Undertale / Deltarune",
+    "resolution": "800x600",
+    "graphics_driver": "virgl",
+    "dxvk_version": "disabled",
+    "wine_version": "7.0",
+    "description": "Optimized configuration for light, 2D games with minimal RAM and battery consumption."
+  },
+  {
+    "id": "gta_v",
+    "name": "GTA V / Jogos 3D Pesados",
+    "resolution": "1280x720",
+    "graphics_driver": "turnip",
+    "dxvk_version": "2.2",
+    "wine_version": "8.0",
+    "description": "Focus on maximum 3D performance using Turnip Driver and updated DXVK."
+  },
+  {
+    "id": "balanced_default",
+    "name": "Perfil Geral Equilibrado",
+    "resolution": "1024x768",
+    "graphics_driver": "turnip",
+    "dxvk_version": "1.10.3",
+    "wine_version": "8.0",
+    "description": "Default configuration for most indie and classic PC games."
+  }
+]
