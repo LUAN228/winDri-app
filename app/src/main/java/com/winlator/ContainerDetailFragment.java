@@ -177,9 +177,32 @@ public class ContainerDetailFragment extends Fragment {
         createWinComponentsTab(view, isEditMode() ? container.getWinComponents() : Container.DEFAULT_WINCOMPONENTS);
         createDrivesTab(view);
 
-        AppUtils.setupTabLayout(view, R.id.TabLayout, (tabResId) -> {
+                AppUtils.setupTabLayout(view, R.id.TabLayout, (tabResId) -> {
             if (tabResId == R.id.LLTabAdvanced) if ((byte)sWinVersion.getTag() == -1) WinVersions.loadSpinner(container, sWinVersion);
         }, R.id.LLTabWineConfiguration, R.id.LLTabWinComponents, R.id.LLTabEnvVars, R.id.LLTabDrives, R.id.LLTabAdvanced);
+
+        // --- INÍCIO SISTEMA DE PERFIS WINDRI ---
+        final Spinner sPreset = view.findViewById(R.id.SPreset);
+        final List<com.winlator.container.Preset> presets = com.winlator.container.PresetManager.loadPresets(context);
+        ArrayAdapter<com.winlator.container.Preset> presetAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, presets);
+        presetAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sPreset.setAdapter(presetAdapter);
+
+        sPreset.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
+                com.winlator.container.Preset preset = presets.get(position);
+                if (preset.getResolution() != null && !preset.getResolution().isEmpty()) {
+                    loadScreenSizeSpinner(view, preset.getResolution());
+                }
+                if (preset.getWineVersion() != null && !preset.getWineVersion().isEmpty() && wineInfos.size() > 1) {
+                    AppUtils.setSpinnerSelectionFromValue(sWineVersion, WineInfo.fromIdentifier(context, preset.getWineVersion()).toString());
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+        // --- FIM SISTEMA DE PERFIS WINDRI ---
 
         view.findViewById(R.id.BTConfirm).setOnClickListener((v) -> {
             try {
