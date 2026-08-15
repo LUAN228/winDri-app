@@ -151,7 +151,13 @@ public class ExternalController implements GamepadSlot {
 
     @Override
     public GamepadVibration getGamepadVibration() {
-        if (vibration == null) vibration = new GamepadVibration(id);
+        if (vibration == null) {
+            if (id != null && !id.isEmpty()) {
+                vibration = new GamepadVibration(id);
+            } else {
+                vibration = new GamepadVibration(com.winlator.WinlatorApplication.getAppContext());
+            }
+        }
         return vibration;
     }
 
