@@ -208,9 +208,18 @@ public class ContainerDetailFragment extends Fragment {
             try {
                 String name = etName.getText().toString();
                 String screenSize = getScreenSize(view);
-                String envVars = envVarsView.getEnvVars();
+                                String envVars = envVarsView.getEnvVars();
                 String graphicsDriver = graphicsDriverPicker.getGraphicsDriver();
                 String dxwrapper = dxwrapperPicker.getDXWrapper();
+                
+                // --- INÍCIO: APLICA DRIVERS DO PERFIL ---
+                com.winlator.container.Preset selectedPreset = (com.winlator.container.Preset) sPreset.getSelectedItem();
+                if (selectedPreset != null) {
+                    if (selectedPreset.getGraphicsDriver() != null && !selectedPreset.getGraphicsDriver().isEmpty()) graphicsDriver = selectedPreset.getGraphicsDriver();
+                    if (selectedPreset.getDxvkVersion() != null && !selectedPreset.getDxvkVersion().isEmpty()) dxwrapper = selectedPreset.getDxvkVersion();
+                }
+                // --- FIM: APLICA DRIVERS DO PERFIL ---
+
                 String dxwrapperConfig = dxwrapperPicker.getDXWrapperConfig();
                 String graphicsDriverConfig = graphicsDriverPicker.getGraphicsDriverConfig();
                 String audioDriverConfig = vAudioDriverConfig.getTag().toString();
