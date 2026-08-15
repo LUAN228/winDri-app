@@ -26,7 +26,7 @@ public class GamepadVibration {
         vibrators[0] = getVibratorAt(0, manager, vibrator);
         vibrators[1] = getVibratorAt(1, manager, vibrator);
     }
-
+    
     protected GamepadVibration(String id) {
         VibratorManager manager = null;
         Vibrator vibrator = null;
@@ -56,18 +56,24 @@ public class GamepadVibration {
         return result != null && result.hasVibrator() ? result : null;
     }
 
-    private void vibrateAt(int index, short newSpeed, int durationMs) {
+        private void vibrateAt(int index, short newSpeed, int durationMs) {
         if (newSpeed == 0) {
-            if (vibrating[index]) vibrators[index].cancel();
+            if (vibrating[index] && vibrators[index] != null) {
+                vibrators[index].cancel();
+            }
             vibrating[index] = false;
-        }
-        else if (newSpeed != currentSpeed[index]) {
-            vibrators[index].vibrate(VibrationEffect.createOneShot(durationMs, newSpeed));
+        } else if (vibrators[index] != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrators[index].vibrate(VibrationEffect.createOneShot(durationMs > 0 ? durationMs : 1000, newSpeed));
+            } else {
+                vibrators[index].vibrate(durationMs > 0 ? durationMs : 1000);
+            }
             vibrating[index] = true;
         }
 
         currentSpeed[index] = newSpeed;
     }
+
 
     private short parseAmplitude(int motorSpeed) {
         return (short)Mathf.roundTo((motorSpeed / 65535.0f) * 255, 15);
