@@ -83,9 +83,10 @@
         <item>@string/image</item>
         <item>@string/solid_color</item>
     </string-array>
-    <string-array name="hud_mode_entries">
+        <string-array name="hud_mode_entries">
         <item>@string/disabled</item>
         <item>@string/simple_fps</item>
+        <item>Médio (FPS + RAM)</item>
         <item>@string/full</item>
     </string-array>
     <string-array name="startup_selection_entries">
