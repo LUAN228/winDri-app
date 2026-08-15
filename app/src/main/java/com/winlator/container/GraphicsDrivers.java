@@ -11,6 +11,9 @@ public abstract class GraphicsDrivers {
     public static final String ZINK = "zink";
     public static final String VIRGL = "virgl";
     public static final String GLADIO = "gladio";
+    public static final String LLVMPIPE = "llvmpipe"; // Driver de Software para compatibilidade (Pizza Tower)
+    public static final String FREEDRENO = "freedreno"; // Driver OpenGL nativo/Mesa para Adreno
+    
     public static final String DEFAULT_VULKAN_DRIVER = VORTEK;
     public static final String DEFAULT_OPENGL_DRIVER = GLADIO;
 
@@ -21,6 +24,8 @@ public abstract class GraphicsDrivers {
             case ZINK: return "Zink";
             case VIRGL: return "VirGL";
             case GLADIO: return "Gladio";
+            case LLVMPIPE: return "LLVMpipe (Software)";
+            case FREEDRENO: return "Freedreno";
             default: return "None";
         }
     }
@@ -30,7 +35,7 @@ public abstract class GraphicsDrivers {
     }
 
     public static boolean isOpenGLDriver(String identifier) {
-        return identifier != null && (identifier.equals(ZINK) || identifier.equals(VIRGL) || identifier.equals(GLADIO));
+        return identifier != null && (identifier.equals(ZINK) || identifier.equals(VIRGL) || identifier.equals(GLADIO) || identifier.equals(LLVMPIPE) || identifier.equals(FREEDRENO));
     }
 
     public static String[] getItems(String apiName) {
@@ -38,7 +43,7 @@ public abstract class GraphicsDrivers {
             return new String[]{getName(TURNIP), getName(VORTEK)};
         }
         else if (apiName.equalsIgnoreCase("OPENGL")) {
-            return new String[]{getName(ZINK), getName(VIRGL), getName(GLADIO)};
+            return new String[]{getName(ZINK), getName(VIRGL), getName(GLADIO), getName(LLVMPIPE), getName(FREEDRENO)};
         }
         else return new String[0];
     }
