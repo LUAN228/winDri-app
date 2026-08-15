@@ -149,10 +149,16 @@ public class ExternalController implements GamepadSlot {
         return state;
     }
 
-    @Override
+        @Override
     public GamepadVibration getGamepadVibration() {
         if (vibration == null) {
-            vibration = new GamepadVibration(id != null ? id : "");
+            int devId = getDeviceId();
+            if (devId != -1) {
+                InputDevice device = InputDevice.getDevice(devId);
+                if (device != null) {
+                    vibration = new GamepadVibration(device.getVibrator());
+                }
+            }
         }
         return vibration;
     }
