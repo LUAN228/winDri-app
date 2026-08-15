@@ -64,7 +64,7 @@ public class FrameRating extends FrameLayout implements Runnable {
                 activityManager = null;
                 memoryInfo = null;
                 break;
-            case SIMPLE:
+                        case SIMPLE:
                 fpsPanel.setVisibility(VISIBLE);
                 gpuPanel.setVisibility(GONE);
                 ramPanel.setVisibility(GONE);
@@ -72,6 +72,16 @@ public class FrameRating extends FrameLayout implements Runnable {
 
                 activityManager = null;
                 memoryInfo = null;
+                break;
+            case MEDIUM:
+                fpsPanel.setVisibility(VISIBLE);
+                gpuPanel.setVisibility(GONE);
+                ramPanel.setVisibility(VISIBLE);
+                cpuPanel.setVisibility(GONE);
+
+                Context ctx = getContext();
+                activityManager = (ActivityManager)ctx.getSystemService(Context.ACTIVITY_SERVICE);
+                memoryInfo = new ActivityManager.MemoryInfo();
                 break;
             case FULL:
                 fpsPanel.setVisibility(VISIBLE);
